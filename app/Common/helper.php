@@ -15,3 +15,11 @@ if( !function_exists( 'server' ) )
         return app('request')->server->get($param);
     }
 }
+
+if( !function_exists( 'findMenuList' ) )
+{
+    function findMenuList()
+    {
+        return require_once COMMON_PATH.'/menu.php';
+    }
+}

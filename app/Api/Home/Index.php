@@ -9,6 +9,6 @@ class Index extends Controller
     public function index( Request $request )
     {
         //
-        dd( server() );
+        return response()->json(findMenuList());
     }
 }
