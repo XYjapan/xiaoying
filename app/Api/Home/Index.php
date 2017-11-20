@@ -9,6 +9,6 @@ class Index extends Controller
     public function index( Request $request )
     {
         //
-        dd( now() );
+        dd( server() );
     }
 }
