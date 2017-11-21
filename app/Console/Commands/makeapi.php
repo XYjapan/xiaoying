@@ -96,7 +96,7 @@ class makeapi extends Command
 
 
         // 父控制器路径
-        $parentfilename = $apipath."/Controller.php";
+        $parentfilename = $apipath."/Api.php";
         // 判断Controller.php 是否存在
         if( ! self::file()->exists($parentfilename) )
             self::file()->put( $parentfilename, self::getParentContents() );
@@ -122,9 +122,9 @@ class makeapi extends Command
 namespace {$namespace};
 
 use Illuminate\Http\Request;
-use App\Api\Controller;
+use App\Api\Api;
 
-class {$name} extends Controller
+class {$name} extends Api
 {
     public function index( Request \$request )
     {
@@ -148,7 +148,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class Controller extends BaseController
+class Api extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }
