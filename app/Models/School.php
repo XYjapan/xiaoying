@@ -12,7 +12,7 @@ class School extends Model
 
     public function findSchool( Array $where, $fields )
     {
-        return $this->_createQueryBulider( $where, $fields )->get();
+        return $this->_createQueryBulider( $where, $fields );
     }
 
 

@@ -17,6 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/','Index@index');
+Route::get('/','Index@index')->name('api');
 Route::get('/menu','Index@menu');
-Route::get('/school/{p?}','School@index')->where('p','[0-9]+')->name('school');
+Route::get('/school','School@index')->name('school');
+
+Route::post('/api_ajax','Ajax@index')->name('apiajax');

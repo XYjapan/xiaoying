@@ -10,7 +10,7 @@ class School extends Api
     {
         //
         $model = new Model;
-        $data = $model->findSchool([['id', '<', 50]], ['id', 'name_cn']);
+        $data = $model->findSchool([], ['id', 'name_cn'])->paginate(20);
 
         return response()->json($data);
     }

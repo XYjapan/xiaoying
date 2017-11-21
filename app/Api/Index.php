@@ -2,15 +2,14 @@
 namespace App\Api;
 
 use Illuminate\Http\Request;
-use App\Api\Api;
+use Auth;
 
 class Index extends Api
 {
     public function index( Request $request )
     {
-        //
-        dd(server());
-        return view('home');
+        dd( \Mail::getSwiftMailer() );
+        return response()->json(['name'=>'laozhou']);
     }
 
     public function menu( Request $request )
@@ -18,6 +17,4 @@ class Index extends Api
         //
         return response()->json( findMenuList() );
     }
-
-
 }
