@@ -23,3 +23,30 @@ if( !function_exists( 'findMenuList' ) )
         return require_once COMMON_PATH.'/menu.php';
     }
 }
+
+if( !function_exists( 'is_mobile' ) )
+{
+    function is_mobile( $tel )
+    {
+        if( strlen( $tel ) !== 11 )
+            return FALSE;
+        //手机号码验证
+        $pattern = "/^(1(([35][0-9])|(47)|[8][01236789]))\d{8}$/";
+        if( preg_match( $pattern, $tel ) === 1 )
+            return true;
+        return FALSE;
+    }
+}
+
+if( !function_exists( 'is_email' ) )
+{
+    function is_email( $email )
+    {
+        return \Validator::make(
+            $email,
+            [
+                'email' =>  'required|email',
+            ]
+        )->fails() ? false : true;
+    }
+}

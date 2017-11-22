@@ -8,7 +8,7 @@ class Index extends Api
 {
     public function index( Request $request )
     {
-        dd( \Mail::getSwiftMailer() );
+        dd( $request->user()->name );
         return response()->json(['name'=>'laozhou']);
     }
 

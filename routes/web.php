@@ -24,3 +24,7 @@ Route::get('/test', 'TestController@index')->name('test');
 
 Route::get('/ajax', 'TestController@ajax')->name('ajax');
 
+Route::any('/login', function(){
+    return \Auth::user() ? view('error', 'has already login') : view('home.login');
+});
+
