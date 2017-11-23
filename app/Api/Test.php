@@ -9,6 +9,6 @@ class Test extends Api
     public function index( Request $request )
     {
         //
-        dd( session() );
+        dd( server() );
     }
 }
