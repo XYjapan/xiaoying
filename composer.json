@@ -23,7 +23,11 @@
         ],
         "psr-4": {
             "App\\": "app/"
-        }
+        },
+        "files": [
+            "App/Common/helper.php",
+            "config/constant.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
