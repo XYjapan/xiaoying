@@ -6,7 +6,7 @@
 | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ |
 | 1  | api中间件编写  | -  | -  | -  | -  | -|
 | 2  | 用户登录接口  | read  | login  | username,password,_token  |  code,status,info | post|
-| 3  | 用户注册接口  | read  | login  | username,password,_token  |  code,status,info | post|
+| 3  | 用户注册接口  | write  | login  | username,password,_token,email,tel  |  code,status,info | post|
 
 ## 002(dragon)
 | 编号  | 描述  | 类型  | uri  | 请求参数  | 返回参数  | 请求方式 |
