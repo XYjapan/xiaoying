@@ -18,4 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::get( '/test', 'Test@index' );
+Route::get('course', 'Course\CourseController@getCourses'); // 课程列表
+Route::get('course/{id}', 'Course\CourseController@findCourse'); // 课程详情
+
