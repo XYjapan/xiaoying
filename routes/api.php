@@ -19,3 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::get( '/test', 'Test@index' );
+
+Route::get( '/', 'Index@index' );
+
+Route::get( '/login', 'Index@login' );
+Route::get( '/register', 'Index@register' );
