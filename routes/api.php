@@ -23,4 +23,4 @@ Route::get( '/test', 'Test@index' );
 Route::get( '/', 'Index@index' );
 
 Route::get( '/login', 'Index@login' );
-Route::get( '/register', 'Index@register' );
+Route::post( '/register', 'Index@register' );

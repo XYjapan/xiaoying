@@ -16,7 +16,7 @@ class ApiCheckMiddleware
     public function handle($request, Closure $next)
     {
         // 站内访问
-        if( server('HTTP_REFERER') !== null )
+        if( strpos( server('HTTP_REFERER'),env('APP_URL') ) === false )
             return response()->json(['code'=>400]);
         // ajax请求
         if( $request->ajax() )

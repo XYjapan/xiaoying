@@ -47,6 +47,10 @@
     
 # 常见problem
 
-1.?? === isset() $$ !is_null()
+    1.?? === isset() $$ !is_null()
+    
+    2.RateLimiter::class 速率限制器
+    
+    3.Throttle  节流器
 
  

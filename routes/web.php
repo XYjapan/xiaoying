@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::any( '/login', function(){
+    return app('request')->user() ? view('error','has alerady login')
+                                          : view('login');
+} );
