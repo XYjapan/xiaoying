@@ -87,4 +87,11 @@ class Courses extends Api
         return $this->result;
     }
 
+
+    public function getCategoryCourses($cateid)
+    {
+        Course::cateCourses($cateid);
+    }
+
+
 }

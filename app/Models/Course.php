@@ -23,7 +23,6 @@ class Course extends Model
 
     }
 
-
     /**
      * 统计课程数量
      * @return mixed
@@ -77,14 +76,6 @@ class Course extends Model
         return self::select($new_field)->get()->toArray();
     }
 
-    /**
-     * 课程分类列表
-     * @return mixed
-     */
-    protected function cateList()
-    {
-        return DB::table('category')->get();
-    }
 
     /**
      * 根据点击量获取热门课程列表
@@ -95,6 +86,7 @@ class Course extends Model
         return self::orderBy('hitNum', 'desc')->get()->toArray();
     }
 
+
     /**
      * 最新课程列表 ID 倒序
      * @return mixed
@@ -102,6 +94,27 @@ class Course extends Model
     protected function newCourses()
     {
         return self::orderBy('id', 'desc')->get()->toArray();
+    }
+
+
+    /**
+     * 课程分类列表
+     * @return mixed
+     */
+    protected function cateList()
+    {
+        return DB::table('category')->get();
+    }
+
+
+    // TODO: 1.only show published ，2.default course parentId = 0，3.classroom course parentId > 0 .
+    // TODO: So: course default only return parentId = 0.
+
+    protected static function cateCourses( $cateid )
+    {
+        $res = self::where('categoryId', $cateid)->where('parentId',0)->where('status','published')->get()->toArray();
+
+        dd($res);
     }
 
 }
