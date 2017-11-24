@@ -5,21 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 
-class Article extends Model
+class School extends Model
 {
-    protected $table = 'article';
+    protected $table = 'school'; // 表名
 
-    protected static $columns = [];
+    protected static $columns = []; // 获取表中所有字段
 
     // 白名单
-    protected $fillable = ['title', 'tagIds', 'publishedTime','thumb','featured','promoted','userId','createdTime','updatedTime'];
+    protected $fillable = ['zhanhui', 'name_cn', 'country_name','category_school','rank_world','competition','job_offer_rate'];
 
 
     public function __construct()
     {
         // 获取表中所有字段
         self::$columns = Schema::getColumnListing($this->table);
-
     }
 
 
@@ -27,9 +26,9 @@ class Article extends Model
      * 统计数量
      * @return mixed
      */
-    protected static function CountArticle()
+    protected static function CountSchools()
     {
-        return self::count();
+        return self::count('id');
     }
 
 
@@ -38,7 +37,7 @@ class Article extends Model
      * @param $id
      * @return bool
      */
-    protected static function findArticleById( $id )
+    protected static function findSchoolById( $id )
     {
         // 查询数据
         $res = self::find($id);
@@ -53,7 +52,7 @@ class Article extends Model
      * @param array $field
      * @return mixed
      */
-    protected static function getArticlesByField( array $field = [] )
+    protected static function getSchoolsByField( array $field = [] )
     {
         // TODO: (drgon) Slowar response... Waiting for adding query conditions. case: category OR limit ...
 

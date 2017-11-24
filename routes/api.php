@@ -30,5 +30,9 @@ Route::get('cases', 'Cased@getCases'); // 案例列表
 Route::get('case/{id}', 'Cased@findCases'); // 案例详情
 
 // Article
-Route::get('article', 'Articles@getArticles'); // 案例列表
+Route::get('articles', 'Articles@getArticles'); // 案例列表
 Route::get('article/{id}', 'Articles@findArticle'); // 案例详情
+
+// School
+Route::get('schools', 'Schools@getSchools'); // 院校列表
+Route::get('school/{id}', 'Schools@findSchool'); // 院校详情
