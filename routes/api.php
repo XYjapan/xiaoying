@@ -28,3 +28,7 @@ Route::get('teacher/{id}', 'Teachers@findTeacher'); // 教师个人信息
 // Case
 Route::get('cases', 'Cased@getCases'); // 案例列表
 Route::get('case/{id}', 'Cased@findCases'); // 案例详情
+
+// Article
+Route::get('article', 'Articles@getArticles'); // 案例列表
+Route::get('article/{id}', 'Articles@findArticle'); // 案例详情
