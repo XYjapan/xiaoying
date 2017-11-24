@@ -1,34 +1,35 @@
 <?php
-namespace App\Api\Course;
+namespace App\Api;
 
-use App\Models\Course;
 use Illuminate\Http\Request;
-use App\Api\Api;
+use App\Models\Cases;
 
-class CourseController extends Api
+class Cased extends Api
 {
     /**
-     * 查询课程列表
+     * 查询列表
      * @param Request $request
      * @return array
      */
-    public function getCourses( Request $request )
+    public function getCases( Request $request )
     {
         // 准备需要查询的字段
-        $field = ['id','title','smallPicture','price','subtitle','serializeMode'];
+        $field = ['univ','name','comid','from_univ','score_en','category','title','star'];
 
-        // 获取课程信息
-        $courses = Course::getCoursesByField($field);
+        // 获取数据
+        $Cases = Cases::getCasesByField($field);
 
         // 查询失败
-        if ( !$courses )
+        if ( !$Cases )
         {
             $this->setResult(400,false,null);
+            return $this->result;
         }
 
+        // 数据封装
         $data = [
-            'course' => $courses,
-            'count' => Course::CountCourse()
+            'cases' => $Cases,
+            'count' => Cases::CountCases()
         ];
 
         // 设置返回值
@@ -43,19 +44,20 @@ class CourseController extends Api
      * @param $id
      * @return array
      */
-    public function findCourse($id)
+    public function findCases($id)
     {
         // 获取数据
-        $res = Course::findCourseById($id);
+        $res = Cases::findCasesById($id);
 
+        // 查询失败
         if ( !$res )
         {
             $this->setResult(400,false,null);
+            return $this->result;
         }
 
         // 设置返回值
         $this->setResult(200,true,$res);
         return $this->result;
     }
-
 }

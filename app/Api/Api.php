@@ -18,8 +18,6 @@ class Api extends BaseController
         'data' => ''
     );
 
-
-
     /**
      * @method 设置 API 返回值
      * @param int $code 返回码

@@ -17,7 +17,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Course
+Route::get('courses', 'Courses@getCourses'); // 课程列表
+Route::get('course/{id}', 'Courses@findCourse'); // 课程详情
 
-Route::get('course', 'Course\CourseController@getCourses'); // 课程列表
-Route::get('course/{id}', 'Course\CourseController@findCourse'); // 课程详情
+// Teacher
+Route::get('teachers', 'Teachers@getTeachers'); // 教师列表
+Route::get('teacher/{id}', 'Teachers@findTeacher'); // 教师个人信息
 
+// Case
+Route::get('cases', 'Cased@getCases'); // 案例列表
+Route::get('case/{id}', 'Cased@findCases'); // 案例详情

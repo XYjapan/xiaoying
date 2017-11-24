@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 
-class Course extends Model
+class Cases extends Model
 {
-    protected $table = 'course';
+    protected $table = 'cases';
 
     protected static $columns = [];
 
     // 白名单
-    protected $fillable = ['title', 'subtitle', 'serializeMode'];
+    protected $fillable = ['univ', 'comid', 'name','title'];
 
 
     public function __construct()
@@ -24,10 +24,10 @@ class Course extends Model
 
 
     /**
-     * 统计课程数量
+     * 统计数量
      * @return mixed
      */
-    protected static function CountCourse()
+    protected static function CountCases()
     {
         return self::count();
     }
@@ -38,7 +38,7 @@ class Course extends Model
      * @param $id
      * @return bool
      */
-    protected static function findCourseById( $id )
+    protected static function findCasesById( $id )
     {
         // 查询数据
         $res = self::find($id);
@@ -49,11 +49,11 @@ class Course extends Model
 
 
     /**
-     * 获取所有课程信息
+     * 获取详情
      * @param array $field
      * @return mixed
      */
-    protected static function getCoursesByField( array $field = [] )
+    protected static function getCasesByField( array $field = [] )
     {
         // 默认查所有
         if ( empty($field) )
@@ -72,8 +72,6 @@ class Course extends Model
             return false;
         }
 
-        // 返回所有课程基本信息 serializeMode = 连载状态
         return self::select($new_field)->get()->toArray();
     }
-
 }
