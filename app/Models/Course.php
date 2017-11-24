@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class Course extends Model
@@ -74,6 +75,33 @@ class Course extends Model
 
         // 返回所有课程基本信息 serializeMode = 连载状态
         return self::select($new_field)->get()->toArray();
+    }
+
+    /**
+     * 课程分类列表
+     * @return mixed
+     */
+    protected function cateList()
+    {
+        return DB::table('category')->get();
+    }
+
+    /**
+     * 根据点击量获取热门课程列表
+     * @return mixed
+     */
+    protected function hotCourses()
+    {
+        return self::orderBy('hitNum', 'desc')->get()->toArray();
+    }
+
+    /**
+     * 最新课程列表 ID 倒序
+     * @return mixed
+     */
+    protected function newCourses()
+    {
+        return self::orderBy('id', 'desc')->get()->toArray();
     }
 
 }

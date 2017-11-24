@@ -11,7 +11,7 @@ class Courses extends Api
      * @param Request $request
      * @return array
      */
-    public function getCourses( Request $request )
+    public function getCourses( Request $request, array $field = [])
     {
         // 准备需要查询的字段
         $field = ['id','title','smallPicture','price','subtitle','serializeMode'];
@@ -26,15 +26,43 @@ class Courses extends Api
             return $this->result;
         }
 
+        // 课程总数
+        $count = Course::CountCourse();
+        // 分类列表
+        $cate = Course::cateList();
+
         $data = [
             'course' => $courses,
-            'count' => Course::CountCourse()
+            'count' => $count,
+            'cate' => $cate
         ];
 
         // 设置返回值
         $this->setResult(200,true, $data);
         return $this->result;
 
+    }
+
+    /**
+     * 热门: 按点击量排序
+     * @return array
+     */
+    public function byHot()
+    {
+        $Courses = Course::hotCourses();
+        $this->setResult(200, true, $Courses);
+        return $this->result;
+    }
+
+    /**
+     * 最新: 按点击量排序
+     * @return array
+     */
+    public function byNew()
+    {
+        $Courses = Course::newCourses();
+        $this->setResult(200, true, $Courses);
+        return $this->result;
     }
 
 

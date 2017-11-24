@@ -19,6 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Course
 Route::get('courses', 'Courses@getCourses'); // 课程列表
+Route::get('courses/hot', 'Courses@byHot'); // 最热课程
+Route::get('courses/new', 'Courses@byNew'); // 最新课程
 Route::get('course/{id}', 'Courses@findCourse'); // 课程详情
 
 // Teacher
