@@ -12,10 +12,20 @@
 | 编号  | 描述  | 类型  | uri  | 请求参数  | 返回参数  | 请求方式 |
 | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ |
 | 1  | 学校数据  | read  | school  | page?  |  code,status,data | get|
-| 2  | 文章数据  | read  | article  | page?  |  code,status,data |get|
-| 3  | 案例数据  | read  | case  | page?  |  code,status,data |get|
-| 4  | 教师数据  | read  | teacher  | page?  |  code,status,data |get|
-| 5  | 课程数据  | read  | course  | page?  |  code,status,data |get|
+| 2  | 学校详情  | read  | school/{id}  | school_id  |  code,status,data | get|
+| 3  | 文章数据  | read  | article  | page?  |  code,status,data |get|
+| 4  | 文章详情  | read  | article/{id}  | article_id  |  code,status,data |get|
+| 5  | 案例数据  | read  | case  | page?  |  code,status,data |get|
+| 6  | 案例详情  | read  | case/{id}  | case_id  |  code,status,data |get|
+| 7  | 教师数据  | read  | teacher  | page?  |  code,status,data |get|
+| 8  | 教师详情  | read  | teacher/{id}  | teacher_id  |  code,status,data |get|
+| 9  | 课程数据  | read  | course  | page?  |  code,status,data |get|
+| 10  | 课程详情  | read  | course/{id}  | course_id  |  code,status,data |get|
+| 11  | 热门课程  | read  | course/hot  | page?  |  code,status,data |get|
+| 12  | 最新课程  | read  | course/new  | page?  |  code,status,data |get|
+| 13  | 分类课程  | read  | course/cate/{id}  | cate_id  |  code,status,data |get|
+| 14  | 推荐课程  | read  | recommend  | page?  |  code,status,data |get|
+
 
 # api数据结构
 

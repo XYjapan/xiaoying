@@ -13,29 +13,31 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// 首页
+Route::get('/', function (){
+    return 'api.default';
 });
 
 // Course
-Route::get('courses', 'Courses@getCourses'); // 课程列表
-Route::get('courses/hot', 'Courses@byHot'); // 最热课程
-Route::get('courses/new', 'Courses@byNew'); // 最新课程
+Route::get('course', 'Courses@getCourses'); // 课程列表
+Route::get('course/hot', 'Courses@byHot'); // 最热课程
+Route::get('course/new', 'Courses@byNew'); // 最新课程
 Route::get('course/{id}', 'Courses@findCourse'); // 课程详情
 Route::get('course/cate/{cateid}', 'Courses@getCategoryCourses'); // 指定分类的课程列表
+Route::get('recommend', 'Courses@getRecommend'); // 推荐课程列表
 
 // Teacher
-Route::get('teachers', 'Teachers@getTeachers'); // 教师列表
+Route::get('teacher', 'Teachers@getTeachers'); // 教师列表
 Route::get('teacher/{id}', 'Teachers@findTeacher'); // 教师个人信息
 
 // Case
-Route::get('cases', 'Cased@getCases'); // 案例列表
+Route::get('case', 'Cased@getCases'); // 案例列表
 Route::get('case/{id}', 'Cased@findCases'); // 案例详情
 
 // Article
-Route::get('articles', 'Articles@getArticles'); // 案例列表
+Route::get('article', 'Articles@getArticles'); // 案例列表
 Route::get('article/{id}', 'Articles@findArticle'); // 案例详情
 
 // School
-Route::get('schools', 'Schools@getSchools'); // 院校列表
+Route::get('school', 'Schools@getSchools'); // 院校列表
 Route::get('school/{id}', 'Schools@findSchool'); // 院校详情

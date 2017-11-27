@@ -2,19 +2,21 @@
 namespace App\Api;
 
 use App\Models\Course;
-use Illuminate\Http\Request;
 
 class Courses extends Api
 {
     /**
      * 查询课程列表
-     * @param Request $request
+     * @param array $field
      * @return array
      */
-    public function getCourses( Request $request, array $field = [])
+    public function getCourses( array $field = [])
     {
         // 准备需要查询的字段
-        $field = ['id','title','smallPicture','price','subtitle','serializeMode'];
+        if ( empty($field) )
+        {
+            $field = ['id','title','smallPicture','price','subtitle','serializeMode'];
+        }
 
         // 获取课程信息
         $courses = Course::getCoursesByField($field);
@@ -76,6 +78,7 @@ class Courses extends Api
         // 获取数据
         $res = Course::findCourseById($id);
 
+        // 无效的id
         if ( !$res )
         {
             $this->setResult(400,false,null);
@@ -88,9 +91,37 @@ class Courses extends Api
     }
 
 
+    /**
+     * 获取指定分类下的课程 根据分类
+     * @param $cateid
+     * @return array
+     */
     public function getCategoryCourses($cateid)
     {
-        Course::cateCourses($cateid);
+        $res = Course::cateCourses($cateid);
+
+        // 该分类下暂无数据
+        if ( empty($res) )
+        {
+            $this->setResult(400, false, null);
+            return $this->result;
+        }
+
+        // 返回结果集
+        $this->setResult(200, true, $res);
+        return $this->result;
+
+    }
+
+    /**
+     * 获取推荐课程
+     * @return array
+     */
+    public function getRecommend()
+    {
+        $res = Course::recommendCourse();
+        $this->setResult(200, 'seccess', $res);
+        return $this->result;
     }
 
 
