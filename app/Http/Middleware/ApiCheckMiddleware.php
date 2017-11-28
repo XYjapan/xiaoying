@@ -19,7 +19,7 @@ class ApiCheckMiddleware
         if( strpos( server('HTTP_REFERER'),env('APP_URL') ) === false )
             return response()->json(['code'=>400]);
         // ajax请求
-        if( $request->ajax() )
+        if( !$request->ajax() )
             return response()->json(['code'=>300]);
         return $next($request);
 

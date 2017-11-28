@@ -1,6 +1,18 @@
 <?php
 
 
+if( !function_exists('DP') )
+{
+    function DP( $params = null )
+    {
+        if( is_null( $params ) )
+            exit;
+        echo '<pre>';
+        var_dump( $params );
+        exit;
+    }
+}
+
 if( !function_exists( 'server' ) )
 {
     function server( $param = null )

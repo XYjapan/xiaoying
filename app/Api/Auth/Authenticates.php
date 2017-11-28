@@ -6,35 +6,48 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
+use App\Api\Requests\CheckLoginParams;
+
 
 trait Authenticates
 {
+    use Throttles;
     /**
      * @login
      * @param Request $request
      * @return array
      */
-    public function login( Request $request )
+    public function login( CheckLoginParams $request )
     {
         // 判断用户是否已经登陆
         if( $request->user() !== null )
-            return ['code'=>200,'status'=>false, 'remark'=>'logined'];
+            return ['code'=>200,'status'=>false, 'remark'=>'你已经登陆'];
 
-        // 数据检验
-        if( $this->validateLogin( $request ) )
-//            $this->getValidateError();
-        dd($this->getValidateError());
+        // 判断是否可能为攻击
+        if( $this->isMyBeAttack( $request ) )
+        {
+            $this->fireLockoutEvent( $request );
 
-        // 执行登陆动作
+            return $this->sendLockoutResponse($request);
+        }
+
+        // 尝试登陆
         $result = ( (new User)->userLogin( $request->all() ) );
 
+        if( $result )
+        {
+            // 密码匹配成功
+            dd( $this->guard() );
+        }
+
+        // 登陆失败 尝试次数自增
+        $this->incrementLoginAttempts( $request );
+
         if( is_null( $result ) )
-            return ['code'=>200,'status'=>false, 'remark'=>'has not exists'];
+            return ['code'=>200,'status'=>false, 'remark'=>'用户名不存在'];
 
         if( $result === false )
-            return ['code'=>200,'status'=>false, 'remark'=>'password is not right'];
-
-        return ['code'=>200,'status'=>true, 'info'=> '' ];
+            return ['code'=>200,'status'=>false, 'remark'=>'密码错误'];
     }
 
     /**
@@ -51,31 +64,21 @@ trait Authenticates
         return 'haha';
     }
 
-    public function validateLogin( $request )
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
     {
-        return $this->validate(
-                        $request,
-                        [
-                            'username'  =>  'bail|required|min:6|max:20',
-                            'password'  =>  'bail|required|min:6|max:20',
-                        ],
-                        [
-                            'username'  =>  [
-                                'required'  =>  'username should not empty',
-                                'min'  =>  'username length should max than 6',
-                                'max'  =>  'username length should min than 30',
-                            ],
-                            'password'  =>  [
-                                'required'  =>  'password should not empty',
-                                'min'  =>  'password length should max than 6',
-                                'max'  =>  'password length should min than 30',
-                            ],
-                        ]
-                    );
+        return Auth::guard();
     }
 
-    public function getValidateError()
+    /**
+     * @return string
+     */
+    public function username()
     {
-        return app('validator')->errors();
+        return 'username';
     }
 }

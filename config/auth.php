@@ -99,4 +99,9 @@ return [
         ],
     ],
 
+
+    'protect'   =>  [
+        'maxAttempts'   =>  5,
+        'decayMinutes'  =>  1,
+    ],
 ];
