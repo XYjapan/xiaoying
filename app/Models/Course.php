@@ -194,4 +194,8 @@ class Course extends Model
         return empty($res) ? false : $res->toArray() ;
     }
 
+    // TODO: 课时列表  课程表(course) <-> 课时表(course_lesson) 一对多
+    // TODO: 课程评价  课程表(course) <-> 评价表(course_review) 一对多
+    // TODO: 课程笔记  课程表(course) <-> 笔记表(course_note) 一对多
+
 }

@@ -40,6 +40,7 @@ class ClassRoom extends Model
     }
 
     // TODO: (drgon) 教室表 <-> 教室课程表 <-> 课程表 定义关联模型，一对多。
+    // TODO: 班级评价 教室表 <-> 评价表(classroom_review) 一对多。
     protected static function getClassRoomCourses($id)
     {
         $res = null;
