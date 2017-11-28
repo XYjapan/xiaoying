@@ -132,9 +132,9 @@ class Course extends Model
     }
 
 
-    // TODO: 1.only show published ，2.default course parentId = 0，3.classroom course parentId > 0 .
-    // TODO: So: course default only return parentId = 0.
-    // TODO: recommended > 0 是否为推荐课程 默认为0，大于0则是推荐课程
+    // 1.only show published ，2.default course parentId = 0，3.classroom course parentId > 0 .
+    //  So: course default only return parentId = 0.
+    //  recommended > 0 是否为推荐课程 默认为0，大于0则是推荐课程
 
     /**
      * 获取指定分类的课程
@@ -188,12 +188,10 @@ class Course extends Model
         $res = self::where('price','=','0')
             ->where('parentId',0)
             ->where('status','published')
-            ->get()->toArray();
-        if ( !$res )
-        {
-            return false;
-        }
-        return $res;
+            ->get();
+
+        // 判断并返回数据
+        return empty($res) ? false : $res->toArray() ;
     }
 
 }

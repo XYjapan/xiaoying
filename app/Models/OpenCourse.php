@@ -17,7 +17,7 @@ class OpenCourse extends Model
     protected static function getOpenCourses($status = 'published')
     {
         $res = self::where('status', $status)
-            ->get()->toArray();
+            ->get();
 
         if ( !$res )
         {
@@ -27,6 +27,7 @@ class OpenCourse extends Model
         $count = self::countOpenCourse(); // 公开课总条数
         $published = count($res); // 已发布条数
 
+        $res['openClass'] = $res->toArray();
         $res['count'] = $count;
         $res['published'] = $published;
 
@@ -41,7 +42,7 @@ class OpenCourse extends Model
     protected static function getOpenCourseById($id)
     {
         // 获取公开课详情
-        $res = self::find($id)->toArray();
+        $res = self::find($id);
 
         if ( !$res )
         {
@@ -54,7 +55,7 @@ class OpenCourse extends Model
         // 获取加入课程的学员id
         $studentIds = self::getOpenCourseStudentsIds($id);
 
-        $data['opencourse'] = $res;
+        $data['opencourse'] = $res->toArray();
         $data['courseInfo'] = $courseInfo ? (array) $courseInfo : $courseInfo ;
         $data['studentIds'] = $studentIds;
 
@@ -72,7 +73,10 @@ class OpenCourse extends Model
             ->where('courseId', '=', $id)
             ->first();
 
-        return $res;
+        // TODO: (drgon) 这里返回的是一个仅包含查询字段的对象 没有toArray方法
+
+        // 判断并返回数据
+        return empty($res) ? false : $res->toArray() ;
     }
 
     /**
@@ -86,14 +90,14 @@ class OpenCourse extends Model
             ->select('userId')
             ->where('courseId', '=', $id)
             ->where('userId', '>' ,'0')
-            ->get()->toArray();
+            ->get();
 
         $ids = null; // 准备一个空数组用来存储学员的id
 
         // 如果查询数据为空 返回空数组
         if ( !$studentIds )
         {
-            return $ids;
+            return false;
         }
 
         // 转为1 维数组

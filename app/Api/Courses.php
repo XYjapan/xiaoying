@@ -45,28 +45,6 @@ class Courses extends Api
 
     }
 
-    /**
-     * 热门: 按点击量排序
-     * @return array
-     */
-    public function byHot()
-    {
-        $Courses = Course::hotCourses();
-        $this->setResult(200, true, $Courses);
-        return $this->result;
-    }
-
-    /**
-     * 最新: 按点击量排序
-     * @return array
-     */
-    public function byNew()
-    {
-        $Courses = Course::newCourses();
-        $this->setResult(200, true, $Courses);
-        return $this->result;
-    }
-
 
     /**
      * 根据id获取指定的一条数据
@@ -113,6 +91,31 @@ class Courses extends Api
 
     }
 
+
+    /**
+     * 热门: 按点击量排序
+     * @return array
+     */
+    public function byHot()
+    {
+        $Courses = Course::hotCourses();
+        $this->setResult(200, true, $Courses);
+        return $this->result;
+    }
+
+
+    /**
+     * 最新: 按ID排序
+     * @return array
+     */
+    public function byNew()
+    {
+        $Courses = Course::newCourses();
+        $this->setResult(200, true, $Courses);
+        return $this->result;
+    }
+
+
     /**
      * 获取推荐课程
      * @return array
@@ -125,6 +128,10 @@ class Courses extends Api
     }
 
 
+    /**
+     * 获取免费课程
+     * @return array
+     */
     public function getFreeCourse()
     {
         $res = Course::freeCourse();

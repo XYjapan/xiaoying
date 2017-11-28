@@ -1,17 +1,19 @@
 <?php
 namespace App\Api;
 
-use App\Models\OpenCourse;
 
-class OpenCourses extends Api
+use App\Models\ClassRoom;
+
+class ClassRooms extends Api
 {
+
     /**
-     * 获取公开课列表
+     * 获取教室列表
      * @return array
      */
-    public function getOpenCourses()
+    public function getClassRooms()
     {
-        $res = OpenCourse::getOpenCourses();
+        $res = ClassRoom::getClassRooms();
 
         // 查询失败
         if ( !$res )
@@ -25,15 +27,14 @@ class OpenCourses extends Api
     }
 
 
-
     /**
-     * 获取指定ID 的公开课详情
+     * 获取指定id的教室信息
      * @param $id
      * @return array
      */
-    public function getOpenCourseById($id)
+    public function findClassRoom($id)
     {
-        $res = OpenCourse::getOpenCourseById($id);
+        $res = ClassRoom::findClassRoom($id);
 
         // 查询失败
         if ( !$res )

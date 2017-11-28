@@ -27,6 +27,10 @@ Route::get('/course/cate/{cateid}', 'Courses@getCategoryCourses'); // 指定分�
 Route::get('/recommend', 'Courses@getRecommend'); // 推荐课程列表
 Route::get('/free', 'Courses@getFreeCourse'); // 免费课程列表
 
+// ClassRoom
+Route::get('/classroom', 'ClassRooms@getClassRooms'); // 班级列表
+Route::get('/classroom/{id}', 'ClassRooms@findClassRoom'); // 班级详情
+
 // OpenCourse
 Route::get('/opencourse', 'openCourses@getOpenCourses'); // 公开课列表
 Route::get('/opencourse/{id}', 'OpenCourses@getOpenCourseById'); // 公开课详情
