@@ -96,4 +96,10 @@ class User extends Authenticatable
         }
         return base64_encode($digest);
     }
+
+    public static function isAliasUnique( Array $where )
+    {
+        return self::where(...$where)
+                     ->first() ?: false;
+    }
 }

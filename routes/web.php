@@ -21,6 +21,11 @@ Route::any( '/login', function(){
                                           : view('login');
 } );
 
+Route::any( '/register', function(){
+    return app('request')->user() ? view('error','has alerady login')
+        : view('register');
+} );
+
 Route::any( '/test', function(){
     return view('test');
 } );

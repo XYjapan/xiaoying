@@ -5,13 +5,14 @@ namespace App\Api\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-use App\Models\User;
 use App\Api\Requests\CheckLoginParams;
+use App\Api\Requests\CheckRegisterParams;
 
 
 trait Authenticates
 {
-    use Throttles;
+    use Throttles,resolveRegister;
+
     /**
      * @login
      * @param Request $request
@@ -43,26 +44,29 @@ trait Authenticates
         return ['code'=>200,'status'=>false, 'info'=>'用户名或密码错误'];
     }
 
+    public function logout( Request $request )
+    {
+        $this->guard()->logout();
+
+    }
+
     /**
      * @register
      * @param Request $request
      * @return array|string
      */
-
-    public function logout( Request $request )
+    public function register( CheckRegisterParams $request )
     {
-        dd( $request->user() );
-        $this->guard()->logout();
+        // 获取registerCredentials
+        $credentials = $this->registerCredentials( $request );
 
-    }
-
-    public function register( Request $request )
-    {
-        // 判断用户是否已经登陆
-        if( $request->user() !== null )
-            return ['code'=>200,'status'=>false];
-
-        return 'haha';
+        // 证书符合唯一性
+        if( ! $this->isRegisterCredentialUnique( $request ) )
+            return ['code'=>200,'status'=>false, 'info'=>'用户名已存在'];
+        // write
+        if( !$this->registerWrite( $credentials ) )
+            return ['code'=>200,'status'=>false, 'info'=>'系统维护'];
+        return ['code'=>200,'status'=>true];
     }
 
     /**
@@ -92,6 +96,7 @@ trait Authenticates
             'password'  =>  $fetch['password'],
         ];
     }
+
     /**
      * Get the guard to be used during authentication.
      *
