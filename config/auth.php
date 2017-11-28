@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Models\User::class,
         ],
 
         // 'users' => [
@@ -104,4 +104,6 @@ return [
         'maxAttempts'   =>  5,
         'decayMinutes'  =>  1,
     ],
+
+    'keywords'  =>  'xiaoying',
 ];

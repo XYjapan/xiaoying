@@ -20,3 +20,7 @@ Route::any( '/login', function(){
     return app('request')->user() ? view('error','has alerady login')
                                           : view('login');
 } );
+
+Route::any( '/test', function(){
+    return view('test');
+} );

@@ -18,9 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::get( '/test', 'Test@index' );
+Route::any( '/test', 'Test@index' );
 
 Route::get( '/', 'Index@index' );
 
 Route::post( '/login', 'Index@login' );
 Route::post( '/register', 'Index@register' );
+Route::any('/logout', 'Index@logout');

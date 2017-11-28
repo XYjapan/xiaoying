@@ -54,6 +54,7 @@ if( !function_exists( 'is_email' ) )
 {
     function is_email( $email )
     {
+        $email = is_array($email) ?: ['email'=>$email];
         return \Validator::make(
             $email,
             [

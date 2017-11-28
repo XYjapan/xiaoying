@@ -8,7 +8,6 @@ class Test extends Api
 {
     public function index( Request $request )
     {
-        //
-        dd( \DB::table('user') );
+        dd( session()->all() );
     }
 }

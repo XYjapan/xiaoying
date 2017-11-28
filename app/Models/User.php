@@ -4,11 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+class User extends Authenticatable
 {
     //
     protected $table = 'user';
+
+    /**
+     * @ 最终验证
+     * @param $user
+     * @param $credentials
+     */
+    public function validateCredentials( $user, $credentials )
+    {
+        // 原始信息
+        $original = $user->attributes;
+        // 客户端密码
+        $clientpassword = $credentials['password'];
+
+        return ( self::generatePassword( $clientpassword, $original['salt'] ) === $original['password'] );
+    }
 
     /**
      * @ 用户注册
@@ -29,40 +45,6 @@ class User extends Model
         $insert['verifiedMobile'] = $data['tel'];
 
         return ( DB::table( $this->table )->insert( $insert ) );
-    }
-
-    /**
-     * @检验用户登录
-     * @param array $data
-     */
-    public function userLogin( Array $data )
-    {
-        $user = $data['username'];
-        $pass = $data['password'];
-
-        $where = ['nickname', '=', $user];
-
-        if( is_mobile($user) )
-            $where = ['verifiedMobile', '=', $user];
-        if( is_email(['email'=>$user]) )
-            $where = ['email', '=', $user];
-
-        //提取用户数据
-        $info = DB::table( $this->table )
-            ->where(...$where)
-            ->select('id','email','nickname','smallavatar','password','salt','verifiedMobile')
-            ->first();
-
-        // 用户是否存在
-        if( !$info = (Array)$info )
-            return null;
-
-        // 盐
-        $salt = $info['salt'];
-        $thispass = self::generatePassword( $pass, $salt );
-
-        return ( $user === $info[$where[0]] && $thispass === $info['password'] ) ? $info
-            : false ;
     }
 
     /**

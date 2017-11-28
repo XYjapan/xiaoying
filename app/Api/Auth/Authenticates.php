@@ -32,22 +32,15 @@ trait Authenticates
         }
 
         // 尝试登陆
-        $result = ( (new User)->userLogin( $request->all() ) );
-
-        if( $result )
+        if( $this->attemptLogin( $request ) )
         {
-            // 密码匹配成功
-            dd( $this->guard() );
+            return ['code'=>200,'status'=>true, 'info'=>$request->user()];
         }
 
         // 登陆失败 尝试次数自增
         $this->incrementLoginAttempts( $request );
 
-        if( is_null( $result ) )
-            return ['code'=>200,'status'=>false, 'remark'=>'用户名不存在'];
-
-        if( $result === false )
-            return ['code'=>200,'status'=>false, 'remark'=>'密码错误'];
+        return ['code'=>200,'status'=>false, 'info'=>'用户名或密码错误'];
     }
 
     /**
@@ -55,6 +48,14 @@ trait Authenticates
      * @param Request $request
      * @return array|string
      */
+
+    public function logout( Request $request )
+    {
+        dd( $request->user() );
+        $this->guard()->logout();
+
+    }
+
     public function register( Request $request )
     {
         // 判断用户是否已经登陆
@@ -64,6 +65,33 @@ trait Authenticates
         return 'haha';
     }
 
+    /**
+     * @ 尝试登陆方法
+     * @param Request $request
+     * @return bool
+     */
+    protected function attemptLogin( Request $request )
+    {
+        return $this->guard()->attempt(
+                                $this->getCredentials( $request ),
+                                $request->filled( 'remember' )
+                            );
+    }
+
+    /**
+     * @ 获取客户端登陆信息
+     * @param Request $request
+     * @return array
+     */
+    protected function getCredentials( Request $request )
+    {
+        $fetch =  $request->only( $this->username(), 'password' );
+        $truename = $this->trueusername();
+        return [
+            $truename   =>  $fetch['username'],
+            'password'  =>  $fetch['password'],
+        ];
+    }
     /**
      * Get the guard to be used during authentication.
      *
@@ -80,5 +108,24 @@ trait Authenticates
     public function username()
     {
         return 'username';
+    }
+
+    /**
+     * @return string
+     */
+    public function trueusername()
+    {
+        // 获取用户别名值
+        $params = app('request')->all('username');
+        $username = $params['username'];
+
+        // 判断是哪种方式登陆
+        if( is_mobile($username) )
+            return 'verifiedMobile';
+
+        if( is_email($username) )
+            return 'email';
+
+        return 'nickname';
     }
 }
