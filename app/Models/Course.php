@@ -179,4 +179,21 @@ class Course extends Model
         return $res;
     }
 
+    /**
+     * 免费课程
+     * return @array(obj)
+     */
+    protected static function freeCourse()
+    {
+        $res = self::where('price','=','0')
+            ->where('parentId',0)
+            ->where('status','published')
+            ->get()->toArray();
+        if ( !$res )
+        {
+            return false;
+        }
+        return $res;
+    }
+
 }

@@ -125,4 +125,17 @@ class Courses extends Api
     }
 
 
+    public function getFreeCourse()
+    {
+        $res = Course::freeCourse();
+        if (!$res)
+        {
+            $this->setResult(400, false, null);
+            return $this->result;
+        }
+        $this->setResult(200, true, $res);
+        return $this->result;
+    }
+
+
 }
