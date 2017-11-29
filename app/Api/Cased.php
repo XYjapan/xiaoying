@@ -22,7 +22,8 @@ class Cased extends Api
         // 查询失败
         if ( !$Cases )
         {
-            $this->setResult(400,false,null);
+            $this->setResult(200, false, null);
+
             return $this->result;
         }
 
@@ -34,6 +35,7 @@ class Cased extends Api
 
         // 设置返回值
         $this->setResult(200,true, $data);
+
         return $this->result;
 
     }
@@ -52,12 +54,14 @@ class Cased extends Api
         // 查询失败
         if ( !$res )
         {
-            $this->setResult(400,false,null);
+            $this->setResult(200, false, null);
+
             return $this->result;
         }
 
         // 设置返回值
         $this->setResult(200,true,$res);
+
         return $this->result;
     }
 }

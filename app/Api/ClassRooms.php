@@ -15,14 +15,17 @@ class ClassRooms extends Api
     {
         $res = ClassRoom::getClassRooms();
 
-        // 查询失败
+        // 查询结果为空
         if ( !$res )
         {
-            $this->setResult(400, false, null);
+
+            $this->setResult(200, false, null);
+
             return $this->result;
         }
 
         $this->setResult(200, true, $res);
+
         return $this->result;
     }
 
@@ -39,11 +42,13 @@ class ClassRooms extends Api
         // 查询失败
         if ( !$res )
         {
-            $this->setResult(400, false, null);
+            $this->setResult(200, false, null);
+
             return $this->result;
         }
 
         $this->setResult(200, true, $res);
+
         return $this->result;
     }
 

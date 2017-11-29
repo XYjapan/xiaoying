@@ -16,11 +16,13 @@ class OpenCourses extends Api
         // 查询失败
         if ( !$res )
         {
-            $this->setResult(400, false, null);
+            $this->setResult(200, false, null);
+
             return $this->result;
         }
 
         $this->setResult(200, true, $res);
+
         return $this->result;
     }
 
@@ -38,11 +40,13 @@ class OpenCourses extends Api
         // 查询失败
         if ( !$res )
         {
-            $this->setResult(400, false, null);
+            $this->setResult(200, false, null);
+
             return $this->result;
         }
 
         $this->setResult(200, true, $res);
+
         return $this->result;
     }
 

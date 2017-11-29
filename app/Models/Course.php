@@ -10,16 +10,9 @@ class Course extends Model
 {
     protected $table = 'course';
 
-    protected static $columns = [];
-
     // 白名单
     protected $fillable = ['title', 'subtitle', 'serializeMode'];
 
-    public function __construct()
-    {
-        // 获取表中所有字段
-        self::$columns = Schema::getColumnListing($this->table);
-    }
 
     /**
      * 统计课程数量
@@ -42,7 +35,7 @@ class Course extends Model
         $res = self::find($id);
 
         // 判断并返回数据
-        return empty($res) ? false : $res->toArray() ;
+        return !$res ? false : $res->toArray();
     }
 
 
@@ -56,31 +49,26 @@ class Course extends Model
     protected static function getCoursesByField( array $field = [], $status = 'published', $parentId = 0, $start = 0, $end = 20)
     {
         // 默认查所有 前端默认只显示已发布的课程
-        if ( empty($field) )
+        if ( !$field )
         {
-            return self::where('parentId', $parentId)
+            $res = self::where('parentId', $parentId)
                 ->where('status', $status)
-                ->limit($start, $end)
-                ->get()->toArray();
-        }
+                ->offset($start)
+                ->limit($end)
+                ->get();
 
-        // 过滤非法字段
-        $new_field = array_filter($field, function ($val){
-            return in_array($val, self::$columns) ? $val : null ;
-        });
-
-        // 给定的查询字段 过滤后为空
-        if ( empty($new_field) )
-        {
-            return false;
+            return !$res ? false : $res->toArray();
         }
 
         // 返回所有课程基本信息 serializeMode = 连载状态
-        return self::select($new_field)
+        $res = self::select($field)
             ->where('parentId', $parentId)
             ->where('status', $status)
-            ->limit($start, $end)
-            ->get()->toArray();
+            ->offset($start)
+            ->limit($end)
+            ->get();
+
+        return !$res ? false : $res->toArray();
     }
 
 
@@ -90,11 +78,14 @@ class Course extends Model
      */
     protected function hotCourses( $start = 0, $end = 20 )
     {
-        return self::where('parentId',0)
+        $res = self::where('parentId',0)
             ->where('status','published')
             ->orderBy('hitNum', 'desc')
-            ->limit($start, $end)
-            ->get()->toArray();
+            ->offset($start)
+            ->limit($end)
+            ->get();
+
+        return !$res ? false : $res->toArray();
     }
 
 
@@ -104,22 +95,16 @@ class Course extends Model
      */
     protected function newCourses( $start = 0, $end = 20 )
     {
-        return self::where('parentId',0)
+        $res = self::where('parentId',0)
             ->where('status','published')
             ->orderBy('id', 'desc')
-            ->limit($start, $end)
-            ->get()->toArray();
+            ->offset($start)
+            ->limit($end)
+            ->get();
+
+        return !$res ? false : $res->toArray();
     }
 
-
-    /**
-     * 课程分类列表
-     * @return mixed
-     */
-    protected static function cateList()
-    {
-        return DB::table('category')->get();
-    }
 
     /**
      * 获取推荐课程列表
@@ -128,7 +113,9 @@ class Course extends Model
      */
     protected static function recommendCourse()
     {
-        return self::where('recommended', '>', '0')->get()->toArray();
+        $res = self::where('recommended', '>', '0')->get();
+
+        return !$res ? false : $res->toArray();
     }
 
 
@@ -141,24 +128,8 @@ class Course extends Model
      * @param $cateid
      * @return mixed
      */
-    protected static function cateCourses( $cateid, $start = 0, $end = 20 )
+    protected static function cateCourses( $cateid, $cateids, $start = 0, $end = 20 )
     {
-
-        // 若当前分类下包含子分类，则使用in查询当前分类及子分类的所有课程
-        $cateList = self::cateList();
-
-        $len = count($cateList); // 分类总个数
-
-        for ($i=0; $i<$len; $i++)
-        {
-            if ($cateList[$i]->parentId == $cateid)
-            {
-                $cateid .= ','.$cateList[$i]->id;
-            }
-        }
-
-        // 当前分类与其子分类的结果集
-        $cateids = explode(',', $cateid);
 
         // 如果没有子分类 使用 where X = X 查询
         if (count($cateids) <= 1)
@@ -166,17 +137,21 @@ class Course extends Model
             $res = self::where('categoryId', $cateid)
                 ->where('parentId',0)
                 ->where('status','published')
-                ->limit($start, $end)
-                ->get()->toArray();
+                ->offset($start)
+                ->limit($end)
+                ->get();
+
         }else{ // 如果有子分类 使用 where X in (x,x,x) 查询
+
             $res = self::whereIn('categoryId', $cateids)
                 ->where('parentId',0)
                 ->where('status','published')
-                ->limit($start, $end)
-                ->get()->toArray();
+                ->offset($start)
+                ->limit($end)
+                ->get();
         }
 
-        return $res;
+        return !$res ? false : $res->toArray();
     }
 
     /**
@@ -191,7 +166,7 @@ class Course extends Model
             ->get();
 
         // 判断并返回数据
-        return empty($res) ? false : $res->toArray() ;
+        return !$res ? false : $res->toArray() ;
     }
 
     // TODO: 课时列表  课程表(course) <-> 课时表(course_lesson) 一对多

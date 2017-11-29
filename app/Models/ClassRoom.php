@@ -14,13 +14,15 @@ class ClassRoom extends Model
      * 获取教室列表
      * @return bool
      */
-    protected static function getClassRooms()
+    protected static function getClassRooms($start = 0, $end = 20)
     {
         $res = self::where('status', '=' , self::$status)
+            ->offset($start)
+            ->limit($end)
             ->get();
 
         // 判断并返回数据
-        return empty($res) ? false : $res->toArray() ;
+        return !$res ? false : $res->toArray() ;
     }
 
 
@@ -35,7 +37,7 @@ class ClassRoom extends Model
             ->find($id);
 
         // 判断并返回数据
-        return empty($res) ? false : $res->toArray() ;
+        return !$res ? false : $res->toArray() ;
 
     }
 

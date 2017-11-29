@@ -9,18 +9,8 @@ class Article extends Model
 {
     protected $table = 'article';
 
-    protected static $columns = [];
-
     // 白名单
     protected $fillable = ['title', 'tagIds', 'publishedTime','thumb','featured','promoted','userId','createdTime','updatedTime'];
-
-
-    public function __construct()
-    {
-        // 获取表中所有字段
-        self::$columns = Schema::getColumnListing($this->table);
-
-    }
 
 
     /**
@@ -44,36 +34,34 @@ class Article extends Model
         $res = self::find($id);
 
         // 判断并返回数据
-        return empty($res) ? false : $res->toArray() ;
+        return !$res ? false : $res->toArray() ;
     }
 
 
     /**
-     * 获取详情
+     * 获取文章详情
      * @param array $field
      * @return mixed
      */
-    protected static function getArticlesByField( array $field = [] )
+    protected static function getArticlesByField( array $field = [], $start = 0, $end = 20)
     {
-        // TODO: (drgon) Slowar response... Waiting for adding query conditions. case: category OR limit ...
 
         // 默认查所有
-        if ( empty($field) )
+        if ( !$field )
         {
-            return self::limit(10)->get()->toArray();
+            $res = self::offset($start)
+                ->limit($end)
+                ->get();
+
+            return !$res ? false : $res->toArray();
         }
 
-        // 过滤非法字段
-        $new_field = array_filter($field, function ($val){
-            return in_array($val, self::$columns) ? $val : null ;
-        });
+        // 查询指定字段
+        $res = self::select($field)
+            ->offset($start)
+            ->limit($end)
+            ->get();
 
-        // 查询字段为空
-        if ( empty($new_field) )
-        {
-            return false;
-        }
-
-        return self::select($new_field)->limit(10)->get()->toArray();
+        return !$res ? false : $res->toArray();
     }
 }

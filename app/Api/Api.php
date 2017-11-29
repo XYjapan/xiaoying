@@ -13,9 +13,9 @@ class Api extends BaseController
 
     // 规范 API 返回值输出格式
     protected $result = array(
-        'code' => 200,
-        'status' => '',
-        'data' => ''
+        'code' => 200, // 状态码 200：请求成功  400：请求失败
+        'status' => '', // 返回数据不为空时 status = true ， 否则 status = false
+        'data' => '' // 返回数据
     );
 
     /**

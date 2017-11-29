@@ -9,18 +9,9 @@ class Teacher extends Model
 {
     protected $table = 'user';
 
-    protected static $columns = [];
 
     // 白名单
     protected $fillable = ['nickname','email'];
-
-
-    public function __construct()
-    {
-        // 获取表中所有字段
-        self::$columns = Schema::getColumnListing($this->table);
-
-    }
 
 
     /**
@@ -44,7 +35,7 @@ class Teacher extends Model
         $res = self::where('roles','like','%ROLE_TEACHER%')->find($id);
 
         // 判断并返回数据
-        return empty($res) ? false : $res->toArray() ;
+        return !$res ? false : $res->toArray() ;
     }
 
 
@@ -56,23 +47,16 @@ class Teacher extends Model
     protected static function getTeachersByField( array $field = [] )
     {
         // 默认查所有
-        if ( empty($field) )
+        if ( !$field )
         {
-            return self::where('roles','like','%ROLE_TEACHER%')->get()->toArray();
-        }
+            $res = self::where('roles','like','%ROLE_TEACHER%')->get();
 
-        // 过滤非法字段
-        $new_field = array_filter($field, function ($val){
-            return in_array($val, self::$columns) ? $val : null ;
-        });
-
-        // 查询字段为空
-        if ( empty($new_field) )
-        {
-            return false;
+            return !$res ? false : $res->toArray();
         }
 
         // 返回所有课程基本信息 serializeMode = 连载状态
-        return self::select($new_field)->get()->toArray();
+        $res = self::select($field)->get();
+
+        return !$res ? false : $res->toArray();
     }
 }

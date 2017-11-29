@@ -16,8 +16,7 @@ class OpenCourse extends Model
      */
     protected static function getOpenCourses($status = 'published')
     {
-        $res = self::where('status', $status)
-            ->get();
+        $res = self::where('status', $status)->get();
 
         if ( !$res )
         {
@@ -73,10 +72,8 @@ class OpenCourse extends Model
             ->where('courseId', '=', $id)
             ->first();
 
-        // TODO: (drgon) 这里返回的是一个仅包含查询字段的对象 没有toArray方法
-
         // 判断并返回数据
-        return empty($res) ? false : $res->toArray() ;
+        return !$res ? false : $res ;
     }
 
     /**

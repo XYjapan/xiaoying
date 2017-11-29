@@ -2,6 +2,7 @@
 namespace App\Api;
 
 use App\Models\Course;
+use App\Models\CourseCategory;
 
 class Courses extends Api
 {
@@ -24,14 +25,15 @@ class Courses extends Api
         // 查询失败
         if ( !$courses )
         {
-            $this->setResult(400,false,null);
+            $this->setResult(200, false, null);
+
             return $this->result;
         }
 
         // 课程总数
         $count = Course::CountCourse();
         // 分类列表
-        $cate = Course::cateList();
+        $cate = CourseCategory::cateList();
 
         $data = [
             'course' => $courses,
@@ -41,6 +43,7 @@ class Courses extends Api
 
         // 设置返回值
         $this->setResult(200,true, $data);
+
         return $this->result;
 
     }
@@ -59,12 +62,14 @@ class Courses extends Api
         // 无效的id
         if ( !$res )
         {
-            $this->setResult(400,false,null);
+            $this->setResult(200, false, null);
+
             return $this->result;
         }
 
         // 设置返回值
         $this->setResult(200,true,$res);
+
         return $this->result;
     }
 
@@ -76,17 +81,34 @@ class Courses extends Api
      */
     public function getCategoryCourses($cateid)
     {
-        $res = Course::cateCourses($cateid);
+        $cateList = CourseCategory::cateList($cateid); // 获取所有分类
+
+        $len = count($cateList); // 分类总条数
+
+        for ($i=0; $i<$len; $i++)
+        {
+            if ($cateList[$i]['parentId'] == $cateid)
+            {
+                $cateid .= ','.$cateList[$i]['id'];
+            }
+        }
+
+        // 当前分类与其子分类的结果集
+        $cateids = explode(',', $cateid);
+
+        $res = Course::cateCourses($cateid, $cateids);
 
         // 该分类下暂无数据
         if ( empty($res) )
         {
-            $this->setResult(400, false, null);
+            $this->setResult(200, false, null);
+
             return $this->result;
         }
 
         // 返回结果集
         $this->setResult(200, true, $res);
+
         return $this->result;
 
     }
@@ -99,7 +121,9 @@ class Courses extends Api
     public function byHot()
     {
         $Courses = Course::hotCourses();
+
         $this->setResult(200, true, $Courses);
+
         return $this->result;
     }
 
@@ -111,7 +135,9 @@ class Courses extends Api
     public function byNew()
     {
         $Courses = Course::newCourses();
+
         $this->setResult(200, true, $Courses);
+
         return $this->result;
     }
 
@@ -123,7 +149,9 @@ class Courses extends Api
     public function getRecommend()
     {
         $res = Course::recommendCourse();
-        $this->setResult(200, 'seccess', $res);
+
+        $this->setResult(200, true, $res);
+
         return $this->result;
     }
 
@@ -135,12 +163,16 @@ class Courses extends Api
     public function getFreeCourse()
     {
         $res = Course::freeCourse();
+
         if (!$res)
         {
-            $this->setResult(400, false, null);
+            $this->setResult(200, false, null);
+
             return $this->result;
         }
+
         $this->setResult(200, true, $res);
+
         return $this->result;
     }
 

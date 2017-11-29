@@ -22,10 +22,10 @@ Route::get('/', function (){
 Route::get('/course', 'Courses@getCourses'); // 课程列表
 Route::get('/course/hot', 'Courses@byHot'); // 最热课程
 Route::get('/course/new', 'Courses@byNew'); // 最新课程
+Route::get('/course/recommend', 'Courses@getRecommend'); // 推荐课程列表
+Route::get('/course/free', 'Courses@getFreeCourse'); // 免费课程列表
 Route::get('/course/{id}', 'Courses@findCourse'); // 课程详情
 Route::get('/course/cate/{cateid}', 'Courses@getCategoryCourses'); // 指定分类的课程列表
-Route::get('/recommend', 'Courses@getRecommend'); // 推荐课程列表
-Route::get('/free', 'Courses@getFreeCourse'); // 免费课程列表
 
 // ClassRoom
 Route::get('/classroom', 'ClassRooms@getClassRooms'); // 班级列表
