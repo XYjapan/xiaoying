@@ -48,7 +48,10 @@
 						type:'POST',
 						success:function(res)
 						{
-							console.log(res.errors);
+							if( res.code != 200 )
+							    alert('系统维护');
+							if( res.status == false )
+							    console.log(res.info);
 						}
 					})
 				}

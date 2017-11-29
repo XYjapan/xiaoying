@@ -28,15 +28,32 @@ trait resolveRegister
             'password'              =>      $clientParams['password'],
         ];
     }
+
+    /**
+     * @ `用户名`是否存在
+     * @param Request $request
+     * @return bool
+     */
     protected function isRegisterCredentialUnique( Request $request )
     {
-        if( User::isAliasUnique( [$this->trueusername(),'=',$request->request->get('username')] ) )
-            return false;
-        return true;
+        return !( User::isAliasUnique( [$this->trueusername(),'=',$request->request->get('username')] ) );
     }
 
+    /**
+     * @ 用户数据写入
+     * @param $credentials
+     * @return mixed
+     */
     protected function registerWrite( $credentials )
     {
+        $user = new User;
+        // 生成盐字符串
+        $credentials['salt'] = $user::createSalt();
+
+        // 加密密码生成
+        $credentials['password'] = $user::generatePassword( $credentials['password'], $credentials['salt'] );
+
+        // dd($credentials);
         return User::create(
             $credentials
         );

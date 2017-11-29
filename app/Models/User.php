@@ -10,9 +10,49 @@ class User extends Authenticatable
 {
     //
     protected $table = 'user';
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = true;
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'verifiedMobile','nickname', 'email', 'password', 'salt',
+    ];
 
     /**
-     * @ 最终验证
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'salt'
+    ];
+
+    protected static $salt;
+
+    /**
+     * The name of the "created at" column.
+     *
+     * @var string
+     */
+    const CREATED_AT = 'createdTime';
+
+    /**
+     * The name of the "updated at" column.
+     *
+     * @var string
+     */
+    const UPDATED_AT = 'updatedTime';
+
+
+    /**
+     * @ login最终验证
      * @param $user
      * @param $credentials
      */
@@ -51,7 +91,7 @@ class User extends Authenticatable
      * @生成盐字符串
      * @return string
      */
-    private static function createSalt()
+    protected static function createSalt()
     {
         return self::$salt ?    self::$salt
             :    self::$salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
@@ -62,7 +102,7 @@ class User extends Authenticatable
      * @param $password
      * @param $salt
      */
-    private static function generatePassword( $password, $salt )
+    protected static function generatePassword( $password, $salt )
     {
         // 初始密码加盐
         $saltedpassword = self::addSalt( $password, $salt );
@@ -76,7 +116,7 @@ class User extends Authenticatable
      * @param $salt
      * @return string
      */
-    private static function addSalt( $password, $salt )
+    protected static function addSalt( $password, $salt )
     {
         return $password.'{'.$salt.'}';
     }
@@ -87,7 +127,7 @@ class User extends Authenticatable
      * @param string $method
      * @return string
      */
-    private static function byHashed( $salted, $method = 'sha256' )
+    protected static function byHashed( $salted, $method = 'sha256' )
     {
         $digest = hash($method, $salted, true);
         for ($i = 1; $i < 5000; ++$i)
@@ -97,9 +137,27 @@ class User extends Authenticatable
         return base64_encode($digest);
     }
 
+    /**
+     * @ where条件下数据是否存在
+     * @param array $where
+     * @return bool
+     */
     public static function isAliasUnique( Array $where )
     {
         return self::where(...$where)
                      ->first() ?: false;
+    }
+
+    /**
+     * @rewrite parent method `Illuminate\Database\Eloquent\Concerns\HasAttributes`
+     *
+     * @param  \DateTime|int  $value
+     * @return string
+     */
+    public function fromDateTime($value)
+    {
+        return strtotime(
+            parent::fromDateTime($value)
+        );
     }
 }

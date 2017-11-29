@@ -44,6 +44,10 @@ trait Authenticates
         return ['code'=>200,'status'=>false, 'info'=>'用户名或密码错误'];
     }
 
+    /**
+     * @ 退出登陆
+     * @param Request $request
+     */
     public function logout( Request $request )
     {
         $this->guard()->logout();
