@@ -38,6 +38,19 @@ class Course extends Model
         return !$res ? false : $res->toArray();
     }
 
+    /**
+     * 获取指定ID的多条数据
+     * @param $id
+     * @return bool
+     */
+    protected static function findCourseByIds( $id )
+    {
+        // 查询数据
+        $res = self::whereIn('id', $id)->get();
+
+        // 判断并返回数据
+        return !$res ? false : $res->toArray();
+    }
 
     /**
      * 获取所有课程信息
@@ -169,8 +182,19 @@ class Course extends Model
         return !$res ? false : $res->toArray() ;
     }
 
-    // TODO: 课时列表  课程表(course) <-> 课时表(course_lesson) 一对多
-    // TODO: 课程评价  课程表(course) <-> 评价表(course_review) 一对多
-    // TODO: 课程笔记  课程表(course) <-> 笔记表(course_note) 一对多
+
+    /**
+     * 獲取當前課程的所有老師ID
+     * @param $id
+     * @return bool
+     */
+    protected static function courseTeacher( $id )
+    {
+        $res = self::select('teacherIds')
+            ->find($id);
+
+        return !$res ? false : $res->toArray();
+    }
+
 
 }

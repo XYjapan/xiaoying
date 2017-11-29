@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CourseCategory extends Model
+class Category extends Model
 {
 
     public $table = 'category';
@@ -14,6 +14,7 @@ class CourseCategory extends Model
     {
         return self::hasMany('App\Models\Course', 'categoryId');
     }
+    
 
     /**
      * 分类列表
@@ -25,5 +26,6 @@ class CourseCategory extends Model
 
         return !$res ? false : $res->toArray();
     }
+
 
 }

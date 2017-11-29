@@ -1,7 +1,9 @@
 
 
 # 项目预备阶段任务划分
+
 ## 001(zgs)
+
 | 编号  | 描述  | 类型  | uri  | 请求参数  | 返回参数  | 请求方式 |
 | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ |
 | 1  | api中间件编写  | -  | -  | -  | -  | -|
@@ -9,6 +11,7 @@
 | 3  | 用户注册接口  | read  | login  | username,password,_token  |  code,status,info | post|
 
 ## 002(dragon)
+
 | 编号  | 描述  | 类型  | uri  | 请求参数  | 返回参数  | 请求方式 |
 | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ | ------------ |
 | 1  | 学校数据  | read  | school  | page?  |  code,status,data | get|
@@ -24,7 +27,22 @@
 | 11  | 热门课程  | read  | course/hot  | page?  |  code,status,data |get|
 | 12  | 最新课程  | read  | course/new  | page?  |  code,status,data |get|
 | 13  | 分类课程  | read  | course/cate/{id}  | cate_id  |  code,status,data |get|
-| 14  | 推荐课程  | read  | recommend  | page?  |  code,status,data |get|
+| 14  | 推荐课程  | read  | /course/recommend  | page?  |  code,status,data |get|
+| 15  | 免费课程  | read  | /course/free  | page?  |  code,status,data |get|
+| 16  | 课时列表  | read  | /course/lesson/{id}  | course_id  |  code,status,data |get|
+| 17  | 班级列表  | read  |/classroom  | page?  |  code,status,data |get|
+| 18  | 热门班级  | read  | /classroom/hot  | course_id  |  code,status,data |get|
+| 19  | 最新班级  | read  | /classroom/new  | course_id  |  code,status,data |get|
+| 20  | 推荐班级  | read  | /classroom/recommend  | course_id  |  code,status,data |get|
+| 21  | 免费班级  | read  | /classroom/free  | course_id  |  code,status,data |get|
+| 22  | 班级话题  | read  | /classroom/topic/{id}  | classroom_id  |  code,status,data |get|
+| 23  | 班级课程  | read  | /classroom/course/{id}  | classroom_id  |  code,status,data | get|
+| 24  | 班级评价  | read  | /classroom/review/{id}  | classroom_id  |  code,status,data | get|
+| 25  | 班级详情  | read  | /classroom/{id}  | classroom_id  |  code,status,data | get|
+| 26  | 公开课列表  | read  | /opencourse  | page?  |  code,status,data | get|
+| 27  | 公开课详情  | read  | /opencourse/{id}  | opencourse_id  |  code,status,data | get|
+| 28  | 課程評價  | read  | /course/review/{id}  | course_id  |  code,status,data | get|
+| 29  | 课程笔记  | read  | /course/note/{id}  | course_id  |  code,status,data | get|
 
 
 # api数据结构

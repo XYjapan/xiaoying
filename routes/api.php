@@ -24,11 +24,21 @@ Route::get('/course/hot', 'Courses@byHot'); // 最热课程
 Route::get('/course/new', 'Courses@byNew'); // 最新课程
 Route::get('/course/recommend', 'Courses@getRecommend'); // 推荐课程列表
 Route::get('/course/free', 'Courses@getFreeCourse'); // 免费课程列表
+Route::get('/course/lesson/{id}', 'Courses@findCourse'); // 课程課時详情
+Route::get('/course/review/{id}', 'Courses@getReview'); // 課程評價詳情列表
+Route::get('/course/note/{id}', 'Courses@getNotes'); // 课程笔记列表
 Route::get('/course/{id}', 'Courses@findCourse'); // 课程详情
 Route::get('/course/cate/{cateid}', 'Courses@getCategoryCourses'); // 指定分类的课程列表
 
 // ClassRoom
 Route::get('/classroom', 'ClassRooms@getClassRooms'); // 班级列表
+Route::get('/classroom/hot', 'ClassRooms@byHot'); // 最热班级
+Route::get('/classroom/new', 'ClassRooms@byNew'); // 最新班级
+Route::get('/classroom/recommend', 'ClassRooms@getRecommend'); // 推荐班级列表
+Route::get('/classroom/free', 'ClassRooms@getFreeClassroom'); // 免费班级
+Route::get('/classroom/topic/{id}', 'ClassRooms@getTopic'); // 班级話題列表
+Route::get('/classroom/course/{id}', 'ClassRooms@getCourses'); // 班級課程
+Route::get('/classroom/review/{id}', 'ClassRooms@getReview'); // 班級評價
 Route::get('/classroom/{id}', 'ClassRooms@findClassRoom'); // 班级详情
 
 // OpenCourse

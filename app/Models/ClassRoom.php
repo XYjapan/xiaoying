@@ -27,6 +27,66 @@ class ClassRoom extends Model
 
 
     /**
+     * 根据点击量获取热门班级列表
+     * @return mixed
+     */
+    protected function hotClassroom( $start = 0, $end = 20 )
+    {
+        $res = self::where('status','published')
+            ->orderBy('hitNum', 'desc')
+            ->offset($start)
+            ->limit($end)
+            ->get();
+
+        return !$res ? false : $res->toArray();
+    }
+
+
+    /**
+     * 最新班级列表 ID 倒序
+     * @return mixed
+     */
+    protected function newClassroom( $start = 0, $end = 20 )
+    {
+        $res = self::where('status','published')
+            ->orderBy('id', 'desc')
+            ->offset($start)
+            ->limit($end)
+            ->get();
+
+        return !$res ? false : $res->toArray();
+    }
+
+
+    /**
+     * 获取推荐班级列表
+     * 推荐班级的标识是 1 < recommended < 10000
+     * @return mixed
+     */
+    protected static function recommendClassroom()
+    {
+        $res = self::where('recommended', '>', '0')->get();
+
+        return !$res ? false : $res->toArray();
+    }
+
+
+    /**
+     * 免费班级
+     * return @array(obj)
+     */
+    protected static function freeClassroom()
+    {
+        $res = self::where('price','=','0.00')
+            ->where('status','published')
+            ->get();
+
+        // 判断并返回数据
+        return !$res ? false : $res->toArray() ;
+    }
+
+
+    /**
      * 获取指定id的教室信息
      * @param $id
      * @return bool
@@ -39,13 +99,6 @@ class ClassRoom extends Model
         // 判断并返回数据
         return !$res ? false : $res->toArray() ;
 
-    }
-
-    // TODO: (drgon) 教室表 <-> 教室课程表 <-> 课程表 定义关联模型，一对多。
-    // TODO: 班级评价 教室表 <-> 评价表(classroom_review) 一对多。
-    protected static function getClassRoomCourses($id)
-    {
-        $res = null;
     }
 
 }
