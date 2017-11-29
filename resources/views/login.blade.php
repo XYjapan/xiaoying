@@ -46,7 +46,8 @@
 						type:'POST',
 						success:function(res)
 						{
-							console.log(res.errors);
+							if( res.status == true )
+							    location.href = '/';
 						}
 					})
 				}

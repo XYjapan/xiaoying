@@ -150,7 +150,7 @@ class User extends Authenticatable
 
     /**
      * @rewrite parent method `Illuminate\Database\Eloquent\Concerns\HasAttributes`
-     *
+     * @转化为时间戳格式
      * @param  \DateTime|int  $value
      * @return string
      */

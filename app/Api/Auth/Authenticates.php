@@ -50,8 +50,9 @@ trait Authenticates
      */
     public function logout( Request $request )
     {
+        if( !$request->user() )
+            return ['code'=>200,'status'=>false,'info'=>'未登录无法退出'];
         $this->guard()->logout();
-
     }
 
     /**
@@ -120,6 +121,7 @@ trait Authenticates
     }
 
     /**
+     * @ 转化真正用户名 key
      * @return string
      */
     public function trueusername()

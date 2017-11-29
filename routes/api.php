@@ -25,3 +25,7 @@ Route::get( '/', 'Index@index' );
 Route::post( '/login', 'Index@login' );
 Route::post( '/register', 'Index@register' );
 Route::any('/logout', 'Index@logout');
+
+
+Route::any('/menu', 'Index@menu');
+Route::any('/islogin', 'Index@isLogin');

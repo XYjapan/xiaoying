@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Home\IndexController@index');
 
 
 Route::any( '/login', function(){
@@ -22,10 +20,14 @@ Route::any( '/login', function(){
 } );
 
 Route::any( '/register', function(){
-    return app('request')->user() ? view('error','has alerady login')
-        : view('register');
+    return app('request')->user() ? view('home.index')
+                                            : view('register');
 } );
 
 Route::any( '/test', function(){
-    return view('test');
+    return view('user.test');
+} );
+
+Route::any( '/menu', function(){
+    return response()->json(require COMMON_PATH.'/menu.php');
 } );

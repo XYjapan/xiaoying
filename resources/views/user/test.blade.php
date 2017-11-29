@@ -39,7 +39,7 @@
 						type:'POST',
 						success:function(res)
 						{
-							console.log(res.errors);
+							location.href = '/';
 						}
 					})
 				}

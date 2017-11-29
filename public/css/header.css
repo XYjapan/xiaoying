@@ -1,0 +1,220 @@
+header{
+  max-width: 1920px;
+  width: 100%;
+  min-width: 1200px;
+}
+header .header_top{
+  width: 100%;
+  height: 32px;
+  line-height: 32px;
+  background-color: #353535;
+}
+header .header_top div{
+  width: 1200px;
+  margin: 0 auto;
+}
+header .header_top p{
+  text-align: right;
+  color: #fff;
+  font-size: 14px;
+}
+header .header_top p a{
+  display: inline-block;
+  padding:0 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all .3s;
+}
+header .header_top p .phone{
+  padding: 0 10px;
+}
+header .header_top p a:hover{
+  color: red;
+}
+header .header_bottom {
+
+  border-bottom: 1px solid transparent;
+}
+header .header_bottom .navbar_content{
+  width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+header .header_bottom .navbar_content .logo{
+  display: inline-block;
+  width: 148px;
+  height: 74px;
+}
+header .header_bottom .navbar_content .logo img{
+  width: 100%;
+  height: 100%;
+}
+header .header_bottom .navbar_content .title{
+  position: absolute;
+  top: 15px;
+  left: 158px;
+  display: inline-block;
+  width: 148px;
+  height: 41px;
+  border-left: 1px solid #dcdcdc;
+  line-height: 41px;
+  color: red;
+  padding-left: 10px;
+  transition: all .3s;
+}
+header .header_bottom .navbar_content .title:hover{
+  color: #000;
+}
+header .header_bottom .navbar_content .nav_li{
+  list-style: none;
+  position: absolute;
+  top: 5px;
+  left:355px;
+}
+header .header_bottom .navbar_content .nav_li >li{
+  float: left;
+  margin-right:20px;
+  position: relative;
+  padding: 20px 0;
+}
+header .header_bottom .navbar_content .nav_li >li ul{
+  list-style: none;
+  position: absolute;
+  top: 50px;
+  width: 220px;
+  background-color: #fff;
+  display: none;
+  border:1px solid #dcdcdc;
+}
+header .header_bottom .navbar_content .nav_li >li ul li{
+  padding: 10px;
+}
+header .header_bottom .navbar_content .nav_li >li ul li:hover a{
+  color: #f7d741;
+}
+header .header_bottom .navbar_content .nav_li >li ul li >a{
+  display: block;
+  width: 100%;
+  font-size: 14px;
+  color: #000;
+  transition: all .3s;
+}
+header .header_bottom .navbar_content .nav_li >li >a{
+  color: #000;
+  font-weight: bold;
+
+  transition: all .3s;
+  padding-right: 15px;
+}
+header .header_bottom .navbar_content .nav_li >li >a.pull_down{
+  background: url(/images/header/down.png);
+  background-repeat: no-repeat;
+  background-size: 8px 5px;
+  background-position: right;
+}
+header .header_bottom .navbar_content .nav_li >li:hover >a.pull_down{
+  background: url(/images/header/up.png);
+  background-repeat: no-repeat;
+  background-size: 8px 5px;
+  background-position: right;
+}
+header .header_bottom .navbar_content .nav_li >li a:hover{
+  color: red;
+}
+header .header_bottom .navbar_content .no_login{
+  /*display: none;*/
+  position: absolute;
+  right: 0;
+  top: 18px;
+}
+header .header_bottom .navbar_content .no_login a{
+  color: #000;
+}
+header .header_bottom .navbar_content .no_login .login{
+  display: inline-block;
+  text-align: center;
+  width: 90px;
+  height: 33px;
+  line-height: 33px;
+  color: #fff;
+  background: #fd553a;
+  border-radius: 5px;
+  margin-right: 20px;
+}
+header .header_bottom .navbar_content .yes_login {
+  position: absolute;
+  right: 0;
+  top: 15px;
+  display: none;
+}
+.user_title{
+  z-index: 9999;
+  background-color: #fff;
+  display: none;
+}
+header .header_bottom .navbar_content .yes_login .login_user{
+  list-style: none;
+}
+header .header_bottom .navbar_content .yes_login .login_user >li{
+  float: left;
+}
+header .header_bottom .navbar_content .yes_login .login_user .user>a{
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
+}
+header .header_bottom .navbar_content .yes_login .login_user .user>a>img{
+  width: 100%;
+  height: 100%;
+}
+header .header_bottom .navbar_content .yes_login .login_user .study{
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  margin-top: 5px;
+}
+header .header_bottom .navbar_content .yes_login .login_user .user {
+  position: relative;
+}
+header .header_bottom .navbar_content .yes_login .login_user .user ul{
+  list-style: none;
+  position: absolute;
+  top: 45px;
+  width: 150px;
+  border: 1px solid #999;
+  border-radius: 5px;
+  overflow: hidden;
+}
+header .header_bottom .navbar_content .yes_login .login_user .user ul li{
+  border-bottom: 1px solid #dcdcdc;
+  padding: 10px;
+  transition:  all .3s;
+}
+header .header_bottom .navbar_content .yes_login .login_user .user ul li .user_name{
+  text-align: center;
+}
+header .header_bottom .navbar_content .yes_login .login_user .user ul li a{
+  display: block;
+  width: 100%;
+  color: #000;
+}
+header .header_bottom .navbar_content .yes_login .login_user .user ul li:hover{
+  border-left: 5px solid red;
+}
+header .header_bottom .navbar_content .yes_login .login_user .user ul li:hover a{
+    color: red;
+}
+header .header_bottom .navbar_content .yes_login .login_user .study a{
+  display: block;
+  background-color: #337ab7;
+  width: 100px;
+  height: 30px;
+  color: #fff;
+  border-radius: 10px;
+  text-align: center;
+  line-height: 30px;
+}
