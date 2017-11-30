@@ -22,9 +22,17 @@ class Category extends Model
      */
     public static function cateList()
     {
-        $res = self::get();
+        // 一级分类
+        $parent = self::where('parentId', '=', 0)->where('groupId', '=', 1)->get();
 
-        return !$res ? false : $res->toArray();
+        // 二级分类
+        $son = self::where('parentId', '>', 0)->where('groupId', '=', 1)->get();
+
+        // 拼接数据
+        $res['parent'] = !$parent ? null : $parent->toArray();
+        $res['son'] = !$son ? null : $son->toArray();
+
+        return !$res ? false : $res;
     }
 
 
