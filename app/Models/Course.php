@@ -196,5 +196,6 @@ class Course extends Model
         return !$res ? false : $res->toArray();
     }
 
+    // TODO: 学员动态 course_lesson_learn 表中可根据学员ID 课程ID 课时ID 和学习状态 获取数据
 
 }

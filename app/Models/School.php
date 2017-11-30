@@ -20,7 +20,6 @@ class School extends Model
      */
     protected static function CountSchools()
     {
-        // TODO: count('id') 和 count() 的效率区别
         return self::count('id');
     }
 
@@ -57,6 +56,7 @@ class School extends Model
             return !$res ? false : $res->toArray();
         }
 
+        // 查询指定字段
         $res = self::select($field)
             ->offset($start)
             ->limit($end)

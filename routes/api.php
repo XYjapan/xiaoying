@@ -18,6 +18,9 @@ Route::get('/', function (){
     return 'api.default';
 });
 
+// Category
+Route::get('/cate', 'Categorys@getCate'); // 获取分类列表
+
 // Course
 Route::get('/course', 'Courses@getCourses'); // 课程列表
 Route::get('/course/hot', 'Courses@byHot'); // 最热课程
