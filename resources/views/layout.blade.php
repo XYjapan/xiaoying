@@ -22,6 +22,7 @@
         {{-- 样式文件 --}}
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/footer.css">
         {{-- 自定义样式堆 --}}
         @stack('style')
 
@@ -46,6 +47,10 @@
         <script src="/js/global.js"></script>
         {{-- 自定义js堆 --}}
         @stack('script')
+
+
+        {{--底部公用表单--}}
+        @include('footForm')
     </body>
 
 </html>

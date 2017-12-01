@@ -105,7 +105,7 @@ header .header_bottom .navbar_content .nav_li >li ul li >a{
 header .header_bottom .navbar_content .nav_li >li >a{
   color: #000;
   font-weight: bold;
-
+  font-size:17px;
   transition: all .3s;
   padding-right: 15px;
 }
@@ -125,7 +125,7 @@ header .header_bottom .navbar_content .nav_li >li a:hover{
   color: red;
 }
 header .header_bottom .navbar_content .no_login{
-  /*display: none;*/
+  display: none;
   position: absolute;
   right: 0;
   top: 18px;

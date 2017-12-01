@@ -24,16 +24,66 @@ function AJAX( url, type, dataType, closure, data )
     })
 }
 
+
+
+/**
+ * @遍历函数
+ * @param obj
+ * @param closure
+ * @constructor
+ */
+function EACH( obj, closure )
+{
+    $.each( obj, closure );
+}
+
+
+
 /**
  *  @判断用户是否登陆
  */
 function isLogin()
 {
     AJAX( '/api/islogin', 'get', 'json', function(res){
-        if( res.is_login == false )
-            return ;
-        createUserMsg( res.is_login );
+        res.is_login == false ? notyetLogin() : alreadyLogin(res);
     } );
+}
+
+
+/**
+ * @ 退出登录
+ */
+function outLogin()
+{
+    AJAX('/api/logout','get','json',function(){});
+
+    notyetLogin();
+}
+
+
+/**
+ * @登陆状态
+ */
+function alreadyLogin(res)
+{
+    createUserMsg( res.is_login );
+    $('.no_login').css({'display':'none'});
+    $('.yes_login').css({'display':'block'});
+    /*@登陆状态 用户栏点击事件*/
+    $('.user_header').on('click',function(){
+        $('.user_title').slideToggle();
+    });
+}
+
+
+
+/**
+ * @未登录状态
+ */
+function notyetLogin()
+{
+    $('.yes_login').css({'display':'none'});
+    $('.no_login').css({'display':'block'});
 }
 
 

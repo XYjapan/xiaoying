@@ -1,7 +1,12 @@
+/**
+ * @ js调用文件
+ * @
+ */
+
 $(function()
 {
     // 获取导航栏数据
-    // initNavMenu();
+    initNavMenu();
 
     // 用户是否等
     isLogin();
