@@ -63,3 +63,23 @@ if( !function_exists( 'is_email' ) )
         )->fails() ? false : true;
     }
 }
+
+if( !function_exists( 'createRandStr' ) )
+{
+    /**
+     * @param int $length  长度
+     * @param int $type     类型 1.数字、字符串  2.纯英文字符  3.纯数字
+     * @return mixed
+     */
+    function createRandStr( $length = 6, $type = 1 )
+    {
+        $res = require_once COMMON_PATH.'/character.php';
+
+        $rankAll = $res[(int)$type];
+        for( $i=0;$i<$length;$i++ )
+        {
+            $resultArray[$i] = $rankAll[array_rand( $rankAll, 1 )];
+        }
+        return implode('',$resultArray);
+    }
+}

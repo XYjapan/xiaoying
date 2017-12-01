@@ -23,6 +23,7 @@
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/header.css">
         <link rel="stylesheet" href="/css/footer.css">
+        <link rel="stylesheet" href="/css/login.css">
         {{-- 自定义样式堆 --}}
         @stack('style')
 
@@ -40,14 +41,18 @@
         {{-- 底部引入 --}}
         @include('footer')
 
+
+        {{-- 登陆注册 --}}
+        @include('login')
+
         {{-- js文件 --}}
         <script src="/js/jquery.min.js"></script>
         <script src="/js/header.js"></script>
         <script src="/js/onload.js"></script>
         <script src="/js/global.js"></script>
+        <script src="/js/login.js"></script>
         {{-- 自定义js堆 --}}
         @stack('script')
-
 
         {{--底部公用表单--}}
         @include('footForm')

@@ -18,11 +18,15 @@
             <a class="title" href="javascript:;">17年专注日本留学</a>
             <ul class="nav_li clearfix">
 
+
+
+
+
             </ul>
             <!-- 没有登陆的状态 -->
             <div class="no_login">
-                <a class="login" href="/login">登录</a>
-                <a href="/register">注册</a>
+                <a class="login" href="javascript:;" onclick="openLoginBox()">登录</a>
+                <a href="javascript:;" onclick="openRegisterBox()">注册</a>
             </div>
             <!-- 登陆之后的状态 -->
             <div class="yes_login">

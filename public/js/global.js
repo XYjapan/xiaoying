@@ -1,5 +1,4 @@
 
-
 /**
  * @ 定义token 常量
  * @type {*|jQuery}
@@ -24,8 +23,6 @@ function AJAX( url, type, dataType, closure, data )
     })
 }
 
-
-
 /**
  * @遍历函数
  * @param obj
@@ -37,18 +34,15 @@ function EACH( obj, closure )
     $.each( obj, closure );
 }
 
-
-
 /**
  *  @判断用户是否登陆
  */
 function isLogin()
 {
     AJAX( '/api/islogin', 'get', 'json', function(res){
-        res.is_login == false ? notyetLogin() : alreadyLogin(res);
+        res.is_login == false ? notyetLogin() : alreadyLogin(res.is_login);
     } );
 }
-
 
 /**
  * @ 退出登录
@@ -60,13 +54,12 @@ function outLogin()
     notyetLogin();
 }
 
-
 /**
  * @登陆状态
  */
 function alreadyLogin(res)
 {
-    createUserMsg( res.is_login );
+    createUserMsg( res );
     $('.no_login').css({'display':'none'});
     $('.yes_login').css({'display':'block'});
     /*@登陆状态 用户栏点击事件*/
@@ -74,8 +67,6 @@ function alreadyLogin(res)
         $('.user_title').slideToggle();
     });
 }
-
-
 
 /**
  * @未登录状态
@@ -85,8 +76,6 @@ function notyetLogin()
     $('.yes_login').css({'display':'none'});
     $('.no_login').css({'display':'block'});
 }
-
-
 
 /**
  * @产生随机字符串
@@ -104,4 +93,65 @@ function randomStr(num)
         result+=data[r];        //输出20次随机数的同时，让rrr加20次，就是20位的随机字符串了。
     }
     return result;
+}
+
+/******************  js表单验证  start ********************/
+
+function checkUsername( obj )
+{
+    var len = obj.val().length;
+    if( (obj.val() == '') || (20<len) || (len<6) )
+    {
+        obj.val('');
+        obj.attr('placeholder','用户名不合法！请重新填写');
+        return false;
+    }
+    return true;
+}
+
+function checkPassword( obj )
+{
+    var len = obj.val().length;
+    if( (obj.val() == '') || (20<len) || (len<6) )
+    {
+        obj.val('');
+        obj.attr('placeholder','密码格式错误！请重新填写');
+        return false;
+    }
+    return true;
+}
+
+function checkPhone( obj )
+{
+    if ( obj.val() == '' || !(/^1[3|4|5|8][0-9]\d{4,8}$/.test(obj.val())) )
+    {
+        obj.val('');
+        obj.attr('placeholder','请输入有效手机号');
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
+
+
+/******************  js表单验证  start ********************/
+
+
+
+
+
+
+
+
+
+function test()
+{
+    AJAX( '/api/sms','post','json',function(res){
+        console.log(res);
+    },{
+        _token:_TOKEN,
+        key:'register_web',
+    } );
 }

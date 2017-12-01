@@ -22,10 +22,20 @@ Route::any( '/test', 'Test@index' );
 
 Route::get( '/', 'Index@index' );
 
+/**
+ * @登陆、注册、退出
+ */
 Route::post( '/login', 'Index@login' );
 Route::post( '/register', 'Index@register' );
 Route::any('/logout', 'Index@logout');
 
-
+/**
+ * @导航菜单、是否登陆
+ */
 Route::any('/menu', 'Index@menu');
 Route::any('/islogin', 'Index@isLogin');
+
+/**
+ * @短信接口
+ */
+Route::post('/sms','Sms@index');
