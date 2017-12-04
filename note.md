@@ -3,6 +3,50 @@
 
 ***
 
+Course
+
+    CourseManage 课程管理
+        NormalCourse 普通课程
+            CourseList 课程列表
+                Search 搜索
+                    cate、title、author 按分类、标题、作者
+                out 导出课程列表
+            CourseInfo 课程详情
+        ClassroomCourse 班级课程
+            CourseList 课程列表
+                Search 搜索
+                    cate、title、author 按分类、标题、作者
+                out 导出课程列表
+            CourseInfo 课程详情
+    
+    CourseRecommend 课程推荐
+        CourseList 课程列表
+            Search 搜索
+                cate、title、author 按分类、标题、作者
+        CourseInfo 课程详情
+    
+    CourseCount 课程统计
+        NormalCourse 普通课程
+            CourseList : 统计的列表 key = 课程名、课时数、学员数、完成课程人数、课程学习时长(分钟)、课程收入(元)、CountInfo
+            CountInfo : 查看课时数据 key = 课时名、课时学习人数、课时完成人数、课时平均学习时长(分钟)、音视频时长(分钟)、音视频平均观看时长(分钟)、测试平均得分
+            Search 搜索
+                cate、title、author 按分类、标题、作者
+            out 导出课时列表
+        ClassroomCourse 班级课程
+            ClassroomCourseList : 统计的列表 key = 课程名、所在班级、课时数、学员人数、完成课程人数、课程学习时长、课程收入(元)、CountInfo
+            CountInfo : 查看课时数据 key = 课时名、课时学习人数、课时完成人数、课时平均学习时长(分钟)、音视频时长(分钟)、音视频平均观看时长(分钟)、测试平均得分
+            Search 搜索
+                cate、title、author 按分类、标题、作者
+            out 导出课时列表
+
+
+
+
+
+
+#### 以下内容暂缓，先完善后台课程选课模块。
+
+
 **Course**
 
     Course list 课程列表
