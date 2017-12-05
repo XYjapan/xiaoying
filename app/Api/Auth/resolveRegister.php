@@ -20,12 +20,13 @@ trait resolveRegister
         $clientParams = $request->all();
         $trueusername = $this->trueusername();
         if( $trueusername == 'nickname' )
-            throw ValidationException::withMessages(['username'=>'用户名格式用户名错误']);
+            throw ValidationException::withMessages(['username'=>'用户名格式错误']);
 
         return [
             $trueusername           =>      $clientParams['username'],
-            'nickname'              =>      $clientParams['nickname'],
+            'nickname'              =>      $clientParams['nickname'] ?? '游客_'.substr( $clientParams['phone'], 7, 4 ),
             'password'              =>      $clientParams['password'],
+            'verifiedMobile'        =>      $clientParams['phone']
         ];
     }
 
@@ -57,5 +58,16 @@ trait resolveRegister
         return User::create(
             $credentials
         );
+    }
+
+    /**
+     * @ 注册后置 执行 删除session
+     * @param Request $request
+     */
+    protected function afterRegister( Request $request )
+    {
+        // $request->session()->flush();
+         $request->session()->forget('web_regiser_code');
+         $request->session()->forget('web_regiser_sms');
     }
 }

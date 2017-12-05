@@ -14,6 +14,8 @@
 
 
 
+    <div style="height:500px;background:#ddd;"></div>
+{{--
 
     <!-- 最新的喜报 -->
     <div class="bulletin clearfix">
@@ -352,7 +354,7 @@
 
     </div>
 
-
+--}}
 
 
 

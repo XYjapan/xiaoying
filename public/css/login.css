@@ -199,12 +199,19 @@
 	width: 212px;
 }
 .shade .register ul li span{
+	background: #ffd53e;
+	border-radius: 5px;
+	line-height:45px;
+	text-align: center;
+	font-size:28px;
+	color: #008000;
 	position: absolute;
 	right: 0;
 	top: 0;
 	display: inline-block;
 	width: 130px;
 	height: 45px;
+	cursor: pointer;
 }
 .shade .register ul li span img{
 	width: 130px;

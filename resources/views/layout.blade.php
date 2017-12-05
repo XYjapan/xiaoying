@@ -55,7 +55,7 @@
         @stack('script')
 
         {{--底部公用表单--}}
-        @include('footForm')
+        {{--@include('footForm')--}}
     </body>
 
 </html>

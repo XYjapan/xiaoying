@@ -19,7 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::any( '/test', 'Test@index' );
-
 Route::get( '/', 'Index@index' );
 
 /**
@@ -30,12 +29,16 @@ Route::post( '/register', 'Index@register' );
 Route::any('/logout', 'Index@logout');
 
 /**
- * @导航菜单、是否登陆
+ * @导航菜单、是否登陆、是否注册
  */
 Route::any('/menu', 'Index@menu');
 Route::any('/islogin', 'Index@isLogin');
+Route::any('/isRegister', 'Index@isRegister');
 
 /**
- * @短信接口
+ * @短信接口, 验证码
  */
-Route::post('/sms','Sms@index');
+Route::post('/createsms','Sms@create');
+Route::post('/checksms','Sms@check');
+Route::any('/fetchcode','Code@fetch');
+Route::any('/checkcode','Code@check');

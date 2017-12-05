@@ -24,28 +24,29 @@ class CheckRegisterParams extends FormRequest
     public function rules()
     {
         return [
-            'username'  =>  'bail|required|min:6|max:20',
-            'nickname'  =>  'bail|nullable|string|max:20',
+            'username'  =>  'bail|required|email',
             'password'  =>  'bail|required|min:6|max:20',
-            'password2' =>  'same:password',
+            'phone'     =>  'required',
+            'code'      =>  'required',
+            'sms'       =>  'required',
         ];
     }
 
     public function messages()
     {
         return [
-                'username.required'     =>  '请输入用户名',
+                'username.required'     =>  '邮箱格式错误',
+                'username.email'        =>  '邮箱格式错误',
                 'username.min'          =>  '用户名介于6-30字符之间',
                 'username.max'          =>  '用户名介于6-30字符之间',
-
-                'nickname.string'       =>  '昵称由字母、数字、下划线组成',
-                'nickname.max'          =>  '昵称小于20个字符',
 
                 'password.required'     =>  '密码不能为空',
                 'password.min'          =>  '密码介于6-30字符之间',
                 'password.max'          =>  '密码介于6-30字符之间',
 
-                'password2.same'        =>  '两次密码不想等',
+                'phone.required'        =>  '无效手机号',
+                'code.required'         =>  '验证码无效',
+                'sms.required'          =>  '短信验证码无效',
         ];
     }
 }

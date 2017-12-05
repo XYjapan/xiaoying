@@ -36,4 +36,16 @@ class Index extends Api
             'is_login'  =>  $request->user() ?: false
         ];
     }
+
+    public function isRegister( Request $request )
+    {
+        $params = $request->all();
+        $email = $params['username'] ?? null;
+        if( is_null( $email ) )
+            return [ 'code'=>400 ];
+
+        if( $this->isRegisterCredentialUnique( $request ) )
+            return [ 'code'=>200, 'status'=>true ];
+        return [ 'code'=>200, 'status'=>false ];
+    }
 }

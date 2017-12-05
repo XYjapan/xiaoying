@@ -52,10 +52,13 @@ class Handler extends ExceptionHandler
         // 捕捉validator报错
         if ($exception instanceof ValidationException)
         {
+            // 显示一条即可
+            $errors = $exception->errors();
+            $error = array_shift( $errors );
             return response()->json([
                 'code'      =>  200,
                 'status'    =>  false,
-                'info'      =>  $exception->errors(),
+                'info'      =>  $error[0],
             ]);
         }
 

@@ -24,9 +24,7 @@ Route::any( '/register', function(){
                                             : view('register');
 } );
 
-Route::any( '/test', function(){
-    return view('user.test');
-} );
+Route::any( '/test', 'Home\IndexController@test');
 
 Route::any( '/menu', function(){
     return response()->json(require COMMON_PATH.'/menu.php');

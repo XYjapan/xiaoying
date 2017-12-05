@@ -62,15 +62,34 @@ trait Authenticates
      */
     public function register( CheckRegisterParams $request )
     {
+        $params = $request->all();
+
+        // 验证验证码
+        if( $params['code'] != session('web_register_code') )
+            return ['code'=>200,'status'=>false, 'info'=>'验证码错误！'];
+
+        // 验证两次手机号是否一致  获取短信信息=本次提交
+        $sms_info = session('web_register_sms');
+        if( $params['phone'] != $sms_info[1] )
+            return ['code'=>200,'status'=>false, 'info'=>'手机号码不一致'];
+
+        // 手机短信验证
+        if( $params['sms'] != $sms_info[0] )
+            return ['code'=>200,'status'=>false, 'info'=>'短信验证码错误'];
+
         // 获取registerCredentials
         $credentials = $this->registerCredentials( $request );
 
         // 证书符合唯一性
         if( ! $this->isRegisterCredentialUnique( $request ) )
             return ['code'=>200,'status'=>false, 'info'=>'用户名已存在'];
+
         // write
         if( !$this->registerWrite( $credentials ) )
             return ['code'=>200,'status'=>false, 'info'=>'系统维护'];
+        // 注册后置处理
+        $this->afterRegister( $request );
+
         return ['code'=>200,'status'=>true];
     }
 
