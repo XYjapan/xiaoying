@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Mail\FormNotification;
+use App\Mail\FormNotification as FormMail;
 
 class IndexController extends Controller
 {
@@ -14,8 +14,18 @@ class IndexController extends Controller
         return view('index');
     }
 
-    public function test( Request $request )
+    public function testmail( Request $request )
     {
-        dd(\Mail::to('709115808@qq.com')->send(new FormNotification()));
+        $mail = new FormMail();
+        $mail->with([
+            'base_info'    =>  [
+                'name'  =>  '测试',
+                'tel'   =>  '15565656196',
+                'xl'    =>  '本科大二',
+            ],
+            'from'  =>  env('APP_URL'),
+        ]);
+        dd( \Mail::send($mail) );
+        return $mail;
     }
 }

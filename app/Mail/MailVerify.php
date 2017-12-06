@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class FormNotification extends Mailable
+class MailVerify extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -28,11 +28,10 @@ class FormNotification extends Mailable
      */
     public function build()
     {
-        return $this->to('zhou.guangsheng@everelite.com')
-                    ->subject('表单提交提醒')
+        return $this->subject('邮箱验证')
                     ->with([
-                        'alias' =>  config('mail.formKey_alias'),
+                        'url'   =>  '/mailverify?key='.createRandStr(32),
                     ])
-                    ->markdown('emails.formNotification');
+                    ->markdown('emails.mailverify');
     }
 }
