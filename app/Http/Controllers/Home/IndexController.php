@@ -28,4 +28,14 @@ class IndexController extends Controller
         dd( \Mail::send($mail) );
         return $mail;
     }
+
+    public function testredis( Request $request )
+    {
+        dd(\PHPRedis::get());
+    }
+
+    public function test( Request $request )
+    {
+        return view('user.test');
+    }
 }

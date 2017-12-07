@@ -14,6 +14,15 @@
 Route::get('/', 'Home\IndexController@index');
 
 
+Route::any( '/testmail', 'Home\IndexController@testmail');
+Route::any( '/testredis', 'Home\IndexController@testredis');
+Route::any( '/test', 'Home\IndexController@test');
+
+
+
+
+
+
 Route::any( '/login', function(){
     return app('request')->user() ? view('error','has alerady login')
                                           : view('login');
@@ -24,7 +33,6 @@ Route::any( '/register', function(){
                                             : view('register');
 } );
 
-Route::any( '/testmail', 'Home\IndexController@testmail');
 
 Route::any( '/menu', function(){
     return response()->json(require COMMON_PATH.'/menu.php');
